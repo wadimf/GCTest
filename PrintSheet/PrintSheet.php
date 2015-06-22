@@ -9,6 +9,7 @@
 
 namespace GC;
 require dirname(__DIR__) . '/libs/commando/vendor/autoload.php';
+require 'HandlePdf.php';
 
 
 class PrintSheet {
@@ -32,6 +33,8 @@ class PrintSheet {
     public $barcodeX = 0;
     public $barcodeY = 0;
 
+    public $errors = false;
+    public $errorMessage = "";
 
 
     /**
@@ -52,7 +55,10 @@ class PrintSheet {
             ->option('nup')->require()
             ->option('rowCnt')->require()
             ->option('colCnt')->require()
-            ->option('deg')->require()
+            ->option('deg')->require()->must(function($degree) {
+                $degrees = array('0', '90', '180');
+                return in_array($degree, $degrees);
+            })
 
             ->option('barcodes')
             ->option('barcodeX')
@@ -71,7 +77,7 @@ class PrintSheet {
 
         $this->output = $cmd['output'];
 
-        $this->nup = $cmd['nup'];
+        $this->nup = $cmd['nup']; //TODO can be removed
         $this->rowCnt = $cmd['rowCnt'];
         $this->colCnt = $cmd['colCnt'];
         $this->deg = $cmd['deg'];
@@ -79,6 +85,33 @@ class PrintSheet {
         $this->barcodes = explode(",", $cmd['barcodes']);
         $this->barcodeX = $cmd['barcodeX'];
         $this->barcodeY = $cmd['barcodeY'];
+    }
+
+    /*
+     * Validate Function
+     *
+     * TODO: Better error handling
+     * */
+    public function ValidateData(){
+
+        if (!$this->errors) {
+            if ((sizeX > printSheetSizeX) || (sizeY > printSheetSizeY)) {
+                $this->errors = true;
+                $this->errorMessage .= 'Input size is bigger then output size';
+            }
+        }
+    }
+
+    public function simpleOrMultiplePdfInput(){
+
+        $pdfLib = new \GC\HandlePdf();
+
+        //TODO more Tests
+        if (isset($this->barcodes)) {
+
+        } else {
+
+        }
     }
 
 } 

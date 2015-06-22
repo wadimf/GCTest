@@ -9,3 +9,6 @@ require 'PrintSheet/PrintSheet.php';
 
 $myTest = new \GC\PrintSheet();
 $myTest->getParams();
+
+// $myTest = new \GC\HandlePdf();
+// $myTest->createEmptyPage();
