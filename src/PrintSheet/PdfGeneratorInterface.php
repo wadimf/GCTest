@@ -3,7 +3,7 @@
 namespace GC;
 
 
-interface PdfGenerator {
+interface PdfGeneratorInterface {
 
 	public function generatePdf($allData);
 
