@@ -1,0 +1,20 @@
+{
+    "name": "root/gc-test",
+    "config": {
+      "vendor-dir": "libs/vendor"
+    },
+    "require": {
+        "nategood/commando": "0.2.*",
+        "setasign/fpdi-fpdf" : "*",
+        "phpunit/phpunit": "4.7.*"
+    },
+    "autoload": {
+        "psr-4": {"GC\\": "src/PrintSheet/"}
+    },
+    "authors": [
+        {
+            "name": "Wadim Filippov",
+            "email": "filippov@kolle-rebbe.de"
+        }
+    ]
+}

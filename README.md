@@ -1,13 +1,15 @@
 # GC Test
-Description
+This PHP CLI program places a given postcard front- and backpage on a print sheet and adds registration marks. 
 
+**Multiple front and backsides are not implemented yet**
+**Barcodes are not implemented yet**
 ### Version
-0.0.1
+0.0.2
 
 ### Usage
 
 ```sh
-$ php printSheet.php -frontSides front1.pdf[,front2.pdf,...] -backSides back1.pdf[,back2.pdf,...] -sizeX 100 -sizeY 200 -output out.pdf -printSheetSizeX 460 -printSheetSizeY 320 -colCnt 3 -rowCnt 2 -nup 3 -deg 0 -barcodes code1.pdf[,code2.pdf,...] -barcodeX 123 -barcodeY 123
+$ php index.php -frontSides front1.pdf[,front2.pdf,...] -backSides back1.pdf[,back2.pdf,...] -sizeX 100 -sizeY 200 -output out.pdf -printSheetX 460 -printSheetY 320 -colCnt 3 -rowCnt 2 -deg 0 -barcodes code1.pdf[,code2.pdf,...] -barcodeX 123 -barcodeY 123
 ```
 
 Required:
@@ -18,7 +20,6 @@ Required:
 * output
 * printSheetSizeX
 * printSheetSizeY
-* nup
 * rowCnt
 * colCnt
 * deg (0, 90, 180)
@@ -33,12 +34,24 @@ frontSides, backSides, barcodes, barcodeX, barcodeY must match amounts
 
 ### Libraries
 
-* TCPdf
+* fpdf
+* fpdi
 * commando
+
+### Installation
+
+```sh
+./composer.phar install
+```
 
 ### Example
 ```sh
-php printSheetTest.php -frontSides test/front1.pdf -backSides test/back1.pdf -sizeX 152 -sizeY 109 -output output/out.pdf -printSheetSizeX 460 -printSheetSizeY 320 -colCnt 3 -rowCnt 2 -nup 6 -deg 0
+php index.php -frontSides test/front1.pdf -backSides test/back1.pdf -sizeX 109 -sizeY 152 -output test/out.pdf -printSheetX 460 -printSheetY 320 -colCnt 3 -rowCnt 2 -deg 0
+```
+
+### Testing
+```sh
+libs/vendor/bin/phpunit --bootstrap libs/vendor/autoload.php test/phpunit/tests.php
 ```
 
 ### Todo's
