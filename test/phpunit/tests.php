@@ -36,9 +36,9 @@ class PrintSheetTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($singleSheet->printingRegistrationsLines, $data[7]);
 	}
 
-	public function testAllSheetsFactory(){
+	public function testAllSheets(){
 		$data = array(array('path/front.pdf'), array('path/back.pdf'), 1, 2, 'path/out.pdf', 3, 4, 5, 6, 0, null, 7,8,null);
-		$allSheets = \GC\AllSheetsFactory::create(array('path/front.pdf'), array('path/back.pdf'), 1, 2, 'path/out.pdf', 3, 4, 5, 6, 0, null, 7,8,null);
+		$allSheets = \GC\DataAllSheets(array('path/front.pdf'), array('path/back.pdf'), 1, 2, 'path/out.pdf', 3, 4, 5, 6, 0, null, 7,8,null);
 
 		$this->assertSame($allSheets->frontSides, $data[0]);
 		$this->assertSame($allSheets->backSides, $data[1]);
@@ -57,7 +57,7 @@ class PrintSheetTests extends PHPUnit_Framework_TestCase{
 	}
 
 	public function testCalculation(){
-		$data = \GC\AllSheetsFactory::create(array('path/front.pdf'), array('path/back.pdf'), 109, 152, 'path/out.pdf', 460, 320, 2,3,0, null, null, null, null);
+		$data = \GC\DataAllSheets::create(array('path/front.pdf'), array('path/back.pdf'), 109, 152, 'path/out.pdf', 460, 320, 2,3,0, null, null, null, null);
 		$calc = new \GC\Calculation();
 		$calc->calcSheetsPlacements($data);
 

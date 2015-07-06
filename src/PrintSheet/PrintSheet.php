@@ -76,7 +76,7 @@ class PrintSheet {
 		    $barcodes = explode(",", $cmd['barcodes']);
 	    }
 
-	    $this->sheetsData = AllSheetsFactory::create(
+	    $this->sheetsData = new DataAllSheets(
 		                    explode(",", $cmd['frontSides']),
 		                    explode(",", $cmd['backSides']),
 						    $cmd['slideWidth'],

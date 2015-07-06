@@ -40,5 +40,9 @@ class DataAllSheets {
 		$this->allSheets   = $allSheets;
 	}
 
+	public function validateData(){
+
+	}
+
 
 }

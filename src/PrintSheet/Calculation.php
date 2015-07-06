@@ -56,7 +56,7 @@ class Calculation {
 
 				$printingRegistrationsLines = $this->calcPrintingRegistrations($startX, $startY, $widthOneCard, $heightOneCard);
 
-				$singleSheetData = SingleSheetFactory::create(
+				$singleSheetData = new DataSingleSheet(
 										$allData->frontSides[0],
 										$allData->backSides[0],
 										$startX,
@@ -79,7 +79,7 @@ class Calculation {
 	}
 
 	private function calcPrintingRegistrations($x, $y, $w, $h){
-		$leftLine = PrintingRegistrationLineFactory::create(
+		$leftLine = new DataPrintingRegistrationLine(
 			$x + self::PRINTPADDING,
 			$y - self::PRINTPADDING,
 			$x + self::PRINTPADDING,
