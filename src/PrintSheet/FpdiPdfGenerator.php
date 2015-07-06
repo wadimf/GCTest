@@ -2,7 +2,7 @@
 
 namespace GC;
 
-class PdfGeneratorFpdi implements PdfGeneratorInterface{
+class FpdiPdfGenerator implements PdfGeneratorInterface{
 
     const PDF_FORMAT    = 'L';  // landscape
 	const PDF_UNIT      = 'mm';
@@ -12,6 +12,26 @@ class PdfGeneratorFpdi implements PdfGeneratorInterface{
 	const LINE_WIDTH    = 0.5;  // thin
 
 	private $pdf = null;
+
+	public function generatePdf($allData){
+
+		// new print sheet
+		$this->pdf = new \FPDI(self::PDF_FORMAT, self::PDF_UNIT, array($allData->printSheetX, $allData->printSheetY));
+		$this->initPrintingRegistrationsLines();
+
+		// frontpage
+		$this->pdf->addPage();
+		$this->addPrintingRegistrations($allData->allSheets);
+		$this->generateFrontPage($allData->allSheets);
+
+		// backpage
+		$this->pdf->addPage();
+		$this->addPrintingRegistrations($allData->allSheets);
+		$this->generateBackPage($allData->allSheets);
+
+		//save
+		$this->pdf->Output($allData->output, 'F');
+	}
 
 
 	private function generateFrontPage($allSheets){
@@ -45,26 +65,5 @@ class PdfGeneratorFpdi implements PdfGeneratorInterface{
 			foreach ($singleSheet->printingRegistrationsLines as $line)
 				$this->pdf->Line($line->x, $line->y, $line->w, $line->h);
 		}
-	}
-
-
-	public function generatePdf($allData){
-
-		// new print sheet
-		$this->pdf = new \FPDI(self::PDF_FORMAT, self::PDF_UNIT, array($allData->printSheetX, $allData->printSheetY));
-		$this->initPrintingRegistrationsLines();
-
-		// frontpage
-		$this->pdf->addPage();
-		$this->addPrintingRegistrations($allData->allSheets);
-		$this->generateFrontPage($allData->allSheets);
-
-		// backpage
-		$this->pdf->addPage();
-		$this->addPrintingRegistrations($allData->allSheets);
-		$this->generateBackPage($allData->allSheets);
-
-		//save
-		$this->pdf->Output($allData->output, 'F');
 	}
 } 

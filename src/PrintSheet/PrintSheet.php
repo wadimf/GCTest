@@ -15,6 +15,22 @@ class PrintSheet {
 	private $errors = false;
 	private $errorMessage = "";
 
+	public function generatePrintSheet(){
+
+		$this->getInputParams();
+
+		$this->validateData();
+
+		$calc = new Calculation();
+
+		$calc->calcSheetsPlacements($this->sheetsData);
+
+		$pdf = new FpdiPdfGenerator();
+
+		$pdf->generatePdf($this->sheetsData);
+
+	}
+
 
     private function getInputParams(){
 
@@ -26,17 +42,17 @@ class PrintSheet {
             ->option('backSides')
 	            ->require()
 	            ->expectsFile()
-            ->option('sizeX')
+            ->option('slideWidth')
 	            ->require()
-            ->option('sizeY')
+            ->option('slideHeight')
 	            ->require()
 
             ->option('output')
 	            ->require()
 
-            ->option('printSheetX')
+            ->option('printSheetWidth')
 	            ->require()
-            ->option('printSheetY')
+            ->option('printSheetHeight')
 	            ->require()
 
             ->option('rowCnt')
@@ -63,11 +79,11 @@ class PrintSheet {
 	    $this->sheetsData = AllSheetsFactory::create(
 		                    explode(",", $cmd['frontSides']),
 		                    explode(",", $cmd['backSides']),
-						    $cmd['sizeX'],
-		                    $cmd['sizeY'],
+						    $cmd['slideWidth'],
+		                    $cmd['slideHeight'],
 		                    $cmd['output'],
-		                    $cmd['printSheetX'],
-		                    $cmd['printSheetY'],
+		                    $cmd['printSheetWidth'],
+		                    $cmd['printSheetHeight'],
 
 		                    $cmd['rowCnt'],
 		                    $cmd['colCnt'],
@@ -112,23 +128,5 @@ class PrintSheet {
 		    exit($this->errorMessage);
 	    }
     }
-
-
-	public function generatePrintSheet(){
-
-		$this->getInputParams();
-
-		$this->validateData();
-
-		$calc = new Calculation();
-
-		$calc->calcSheetsPlacements($this->sheetsData);
-
-		$pdf = new PdfGeneratorFpdi();
-
-		$pdf->generatePdf($this->sheetsData);
-
-
-	}
 
 } 

@@ -9,17 +9,17 @@ This PHP CLI program places a given postcard front- and backpage on a print shee
 ### Usage
 
 ```sh
-$ php index.php -frontSides front1.pdf[,front2.pdf,...] -backSides back1.pdf[,back2.pdf,...] -sizeX 100 -sizeY 200 -output out.pdf -printSheetX 460 -printSheetY 320 -colCnt 3 -rowCnt 2 -deg 0 -barcodes code1.pdf[,code2.pdf,...] -barcodeX 123 -barcodeY 123
+$ php index.php -frontSides front1.pdf[,front2.pdf,...] -backSides back1.pdf[,back2.pdf,...] -slideWidth 100 -slideHeight 200 -output out.pdf -printSheetWidth 460 -printSheetHeight 320 -colCnt 3 -rowCnt 2 -deg 0 -barcodes code1.pdf[,code2.pdf,...] -barcodeX 123 -barcodeY 123
 ```
 
 Required:
 * frontSides (min=1)
 * backSides (min=1)
-* sizeX
-* sizeY
+* slideWidth
+* slideHeight
 * output
-* printSheetSizeX
-* printSheetSizeY
+* printSheetWidth
+* printSheetHeight
 * rowCnt
 * colCnt
 * deg (0, 90, 180)
@@ -46,7 +46,7 @@ frontSides, backSides, barcodes, barcodeX, barcodeY must match amounts
 
 ### Example
 ```sh
-php index.php -frontSides test/front1.pdf -backSides test/back1.pdf -sizeX 109 -sizeY 152 -output test/out.pdf -printSheetX 460 -printSheetY 320 -colCnt 3 -rowCnt 2 -deg 0
+php index.php -frontSides test/front1.pdf -backSides test/back1.pdf -slideWidth 109 -slideHeight 152 -output test/out.pdf -printSheetWidth 460 -printSheetHeight 320 -colCnt 3 -rowCnt 2 -deg 0
 ```
 
 ### Testing
