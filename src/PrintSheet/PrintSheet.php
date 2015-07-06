@@ -12,14 +12,12 @@ require dirname(__DIR__) . '/../libs/vendor/autoload.php';
 class PrintSheet {
 
 	private $sheetsData = null;
-	private $errors = false;
-	private $errorMessage = "";
 
 	public function generatePrintSheet(){
 
 		$this->getInputParams();
 
-		$this->validateData();
+		$this->sheetsData->validateInputData();
 
 		$calc = new Calculation();
 
@@ -95,38 +93,6 @@ class PrintSheet {
 		                    $cmd['barcodeY'],
 		                    null
 	                    );
-    }
-
-
-	private function setErrorMessage($message){
-		$this->errors = true;
-		$this->errorMessage .= $message . PHP_EOL;
-	}
-
-
-	private function validateData(){
-
-        if (!$this->errors) {
-            if (($this->sheetsData->sizeX > $this->sheetsData->printSheetX) || ($this->sheetsData->sizeY > $this->sheetsData->printSheetY)) {
-	            $this->setErrorMessage('Input size is bigger then output size');
-            }
-        }
-
-	    if (!$this->errors) {
-	        if (count($this->sheetsData->frontSides) !== count($this->sheetsData->backSides)){
-		        $this->setErrorMessage('Frontsides and backsides amount did not match');
-	        }
-	    }
-
-	    if ($this->errors){
-		    if ($this->$barcodes !== null || $this->$barcodeX !== 0 || $this->$barcodeY !== 0) {
-			    $this->setErrorMessage('Barcode generation is not implemented yet');
-		    }
-	    }
-
-	    if ($this->errors){
-		    exit($this->errorMessage);
-	    }
     }
 
 } 

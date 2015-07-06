@@ -48,11 +48,11 @@ class Calculation {
 			"printingRegistrationsLines" => null
 		);
 
-		for ($i = 0; $i < $allData->rowCnt; $i++) {
+		for ($row = 0; $row < $allData->rowCnt; $row++) {
 
 			$startX = $startXInit;
 
-			for ($j = 0; $j < $allData->colCnt; $j++) {
+			for ($col = 0; $col < $allData->colCnt; $col++) {
 
 				$printingRegistrationsLines = $this->calcPrintingRegistrations($startX, $startY, $widthOneCard, $heightOneCard);
 
@@ -78,33 +78,33 @@ class Calculation {
 		$allData->allSheets = $allSingleSheetsArray;
 	}
 
-	private function calcPrintingRegistrations($x, $y, $w, $h){
+	private function calcPrintingRegistrations($x, $y, $width, $height){
 		$leftLine = new DataPrintingRegistrationLine(
 			$x + self::PRINTPADDING,
 			$y - self::PRINTPADDING,
 			$x + self::PRINTPADDING,
-			$y + $h + self::PRINTPADDING
+			$y + $height + self::PRINTPADDING
 		);
 
 		$rightLine = new DataPrintingRegistrationLine(
-			$x + $w - self::PRINTPADDING,
+			$x + $width - self::PRINTPADDING,
 			$y - self::PRINTPADDING,
-			$x + $w - self::PRINTPADDING,
-			$y + $h + self::PRINTPADDING
+			$x + $width - self::PRINTPADDING,
+			$y + $height + self::PRINTPADDING
 		);
 
 		$upperLine = new DataPrintingRegistrationLine(
 			$x - self::PRINTPADDING,
 			$y + self::PRINTPADDING,
-			$x + $w + self::PRINTPADDING,
+			$x + $width + self::PRINTPADDING,
 			$y + self::PRINTPADDING
 		);
 
 		$lowerLine = new DataPrintingRegistrationLine(
 			$x - self::PRINTPADDING,
-			$y + $h - self::PRINTPADDING,
-			$x + $w + self::PRINTPADDING,
-			$y + $h - self::PRINTPADDING
+			$y + $height - self::PRINTPADDING,
+			$x + $width + self::PRINTPADDING,
+			$y + $height - self::PRINTPADDING
 		);
 
 		return array($leftLine, $rightLine, $upperLine, $lowerLine);

@@ -23,6 +23,9 @@ class DataAllSheets {
 	public $barcodeY = 0;
 	public $allSheets = null;
 
+	private $errors = false;
+	private $errorMessage = "";
+
 	function __construct( $frontSides, $backSides, $sizeX, $sizeY, $output, $printSheetX, $printSheetY, $rowCnt, $colCnt, $deg, $barcodes, $barcodeX, $barcodeY, $allSheets ) {
 		$this->frontSides  = $frontSides;
 		$this->backSides   = $backSides;
@@ -40,9 +43,35 @@ class DataAllSheets {
 		$this->allSheets   = $allSheets;
 	}
 
-	public function validateData(){
+	public function validateInputData(){
 
+		if (!$this->errors) {
+			if (($this->sizeX > $this->printSheetX) || ($this->sizeY > $this->printSheetY)) {
+				$this->setErrorMessage('Input size is bigger then output size');
+			}
+		}
+
+		if (!$this->errors) {
+			if (count($this->frontSides) !== count($this->backSides)){
+				$this->setErrorMessage('Frontsides and backsides amount did not match');
+			}
+		}
+
+		if ($this->errors){
+			if ($this->$barcodes !== null || $this->$barcodeX !== 0 || $this->$barcodeY !== 0) {
+				$this->setErrorMessage('Barcode generation is not implemented yet');
+			}
+		}
+
+		if ($this->errors){
+			exit($this->errorMessage);
+		}
 	}
 
+
+	private function setErrorMessage($message){
+		$this->errors = true;
+		$this->errorMessage .= $message . PHP_EOL;
+	}
 
 }
